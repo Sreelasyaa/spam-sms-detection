@@ -1,9 +1,8 @@
 from flask import Flask, request, jsonify
-import joblib  # ✅ use joblib, not pickle
+import joblib  
 
-# Load the model and vectorizer using joblib
-model = joblib.load('nb_model.pkl')           # or whichever model you prefer
-vectorizer = joblib.load('vectorizer.pkl')    # TF-IDF vectorizer
+model = joblib.load('nb_model.pkl')           
+vectorizer = joblib.load('vectorizer.pkl')    
 
 app = Flask(__name__)
 
@@ -17,7 +16,6 @@ def predict():
         data = request.get_json()
         message = data['message']
 
-        # Transform and predict
         transformed_msg = vectorizer.transform([message])
         prediction = model.predict(transformed_msg)[0]
 
